@@ -1,0 +1,12 @@
+version: v1
+plugins:
+  - plugin: go
+    out: gen
+    opt:
+      - paths=source_relative
+  - plugin: crd
+    out: gen
+    opt:
+      - paths=source_relative
+    # path: [go, run, github.com/ornew/protoc-gen-crd]
+    path: [go, run, ..]

@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package example.v1alpha1;
+
+import "options.proto";
+
+option go_package = "github.com/ornew/protoc-gen-crd/example/gen/example/v1alpha1;examplev1alpha1";
+
+message Example {
+  option (crd.v1alpha1.object).spec = {
+    group: "example.com",
+    names: {
+      plural: "examples",
+      singular: "example",
+      shortNames: ["ex"],
+      kind: "Example",
+      listKind: "ExampleList",
+      categories: ["example"],
+    },
+    scope: "Namespaced",
+    versions: [{
+      name: "v1alpha1",
+      served: true,
+      storage: true,
+      // deprecated: false,
+      // deprecationWarning: "",
+      // schema: {}, // Will be overwriten automatically.
+      subresources: {
+        status: {},
+      },
+      additionalPrinterColumns: [{
+        name: "FOO",
+        type: "string",
+        // format: "url",
+        description: "foo string.",
+        // priority: 1,
+        jsonPath: ".spec.foo"
+      }],
+    }]
+  };
+
+  Spec spec = 1;
+  Status status = 2;
+
+  message Spec {
+    string foo = 30;
+  }
+  message Status {
+    string message = 30;
+  }
+}
